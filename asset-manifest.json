@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/mrsad/static/css/main.89453c1d.css",
-    "main.js": "/mrsad/static/js/main.bbe2cc19.js",
+    "main.js": "/mrsad/static/js/main.2641d52d.js",
     "index.html": "/mrsad/index.html",
     "main.89453c1d.css.map": "/mrsad/static/css/main.89453c1d.css.map",
-    "main.bbe2cc19.js.map": "/mrsad/static/js/main.bbe2cc19.js.map"
+    "main.2641d52d.js.map": "/mrsad/static/js/main.2641d52d.js.map"
   },
   "entrypoints": [
     "static/css/main.89453c1d.css",
-    "static/js/main.bbe2cc19.js"
+    "static/js/main.2641d52d.js"
   ]
 }
