@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/mrsad/static/css/main.b86dc9e4.css",
+    "main.js": "/mrsad/static/js/main.e6264634.js",
+    "index.html": "/mrsad/index.html",
+    "main.b86dc9e4.css.map": "/mrsad/static/css/main.b86dc9e4.css.map",
+    "main.e6264634.js.map": "/mrsad/static/js/main.e6264634.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b86dc9e4.css",
+    "static/js/main.e6264634.js"
+  ]
+}
