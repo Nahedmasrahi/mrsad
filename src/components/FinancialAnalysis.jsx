@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS, BarElement, CategoryScale, LinearScale } from "chart.js";
@@ -39,12 +39,11 @@ const FinancialAnalysis = () => {
       ],
     });
 
-    // تحليل الخطر والتنبؤ
     if (percent <= 50) setRiskLevel("low");
     else if (percent <= 80) setRiskLevel("medium");
     else setRiskLevel("high");
 
-    setPredictedCrisis(percent > 100); // إذا النفقات > الدخل → أزمة
+    setPredictedCrisis(percent > 100);
   };
 
   const barData = {
@@ -130,7 +129,7 @@ const FinancialAnalysis = () => {
         {/* التحليل + الرسم الدائري */}
         {score && (
           <div className="text-center">
-            <ResponsiveContainer width="100%" height={200}>
+            <ResponsiveContainer width="100%" height={220}>
               <PieChart>
                 <Pie
                   data={score.pieData}
@@ -141,7 +140,37 @@ const FinancialAnalysis = () => {
                   innerRadius={50}
                   outerRadius={80}
                   paddingAngle={3}
-                  label
+                  label={({ name, value, cx, cy, midAngle, outerRadius }) => {
+                    const RADIAN = Math.PI / 180;
+                    const x1 = cx + outerRadius * Math.cos(-midAngle * RADIAN);
+                    const y1 = cy + outerRadius * Math.sin(-midAngle * RADIAN);
+                    const x2 = cx + (outerRadius + 10) * Math.cos(-midAngle * RADIAN);
+                    const y2 = cy + (outerRadius + 10) * Math.sin(-midAngle * RADIAN);
+                    let xText = cx + (outerRadius + 50) * Math.cos(-midAngle * RADIAN);
+                    const yText = cy + (outerRadius + 50) * Math.sin(-midAngle * RADIAN);
+
+                    // ✅ سحب المصروفات لليسار قليلاً
+                    if (name === "المصروفات") {
+                      xText -= 68;
+                    }
+
+                    return (
+                      <>
+                        <line x1={x1} y1={y1} x2={x2} y2={y2} stroke="#999" strokeWidth={1} />
+                        <text
+                          x={xText}
+                          y={yText}
+                          fill="#111"
+                          fontSize={13}
+                          fontWeight="bold"
+                          textAnchor={xText > cx ? "start" : "end"}
+                          dominantBaseline="central"
+                        >
+                          {`${name}: ${value}`}
+                        </text>
+                      </>
+                    );
+                  }}
                 >
                   {score.pieData.map((entry, index) => (
                     <Cell key={index} fill={COLORS[index % COLORS.length]} />
@@ -158,18 +187,18 @@ const FinancialAnalysis = () => {
               </p>
             </div>
 
-            {/* ✅ مؤشر الخطر المالي */}
+            {/* مؤشر الخطر المالي */}
             <div className="mt-6 text-right">
               <h3 className="text-lg font-bold mb-2">📊 مؤشر الخطر المالي</h3>
               <div className="w-full bg-gray-200 rounded-full h-5">
                 <div
-                  className={h-5 rounded-full text-center text-sm font-semibold ${
+                  className={`h-5 rounded-full text-center text-sm font-semibold ${
                     riskLevel === "low"
                       ? "bg-green-500 w-1/4"
                       : riskLevel === "medium"
                       ? "bg-yellow-400 w-2/4"
                       : "bg-red-500 w-4/5"
-                  }}
+                  }`}
                 >
                   {riskLevel === "low"
                     ? "منخفض"
@@ -180,7 +209,6 @@ const FinancialAnalysis = () => {
               </div>
             </div>
 
-            {/* ✅ تنبؤ الأزمة */}
             {predictedCrisis && (
               <div className="mt-4 bg-red-100 text-red-800 p-4 rounded-lg shadow text-right">
                 ⚠️ تنبيه: تشير بياناتك إلى احتمال حدوث أزمة مالية خلال الشهر القادم بسبب تجاوز المصروفات والالتزامات دخلك الشهري.
