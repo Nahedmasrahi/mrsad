@@ -230,3 +230,4 @@ const FinancialAnalysis = () => {
 };
 
 export default FinancialAnalysis;
+
