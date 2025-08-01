@@ -158,16 +158,24 @@ const FinancialAnalysis = () => {
                       <>
                         <line x1={x1} y1={y1} x2={x2} y2={y2} stroke="#999" strokeWidth={1} />
                         <text
-                          x={xText}
-                          y={yText}
-                          fill="#111"
-                          fontSize={13}
-                          fontWeight="bold"
-                          textAnchor={xText > cx ? "start" : "end"}
-                          dominantBaseline="central"
-                        >
-                          {`${name}: ${value}`}
-                        </text>
+  x={xText}
+  y={yText}
+  fill="#111"
+  fontSize={13}
+  fontWeight="bold"
+  textAnchor={xText > cx ? "start" : "end"}
+  dominantBaseline="central"
+>
+  {window.innerWidth < 500 ? (
+    <>
+      <tspan x={xText} dy="-0.6em">{name}:</tspan>
+      <tspan x={xText} dy="1.2em">{value}</tspan>
+    </>
+  ) : (
+    `${name}: ${value}`
+  )}
+</text>
+
                       </>
                     );
                   }}
@@ -230,4 +238,5 @@ const FinancialAnalysis = () => {
 };
 
 export default FinancialAnalysis;
+
 
